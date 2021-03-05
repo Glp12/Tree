@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BST
+{
+    public class BST
+    {
+        static private BST LeftElement;
+        static private BST RightElement;
+        static private int CurrentElement;
+
+        public BST(int FirstElementOfTree)
+        {
+            CurrentElement = FirstElementOfTree;
+        }
+
+        public void Add(int element)
+        {
+            if (CurrentElement > element)
+            {
+                if (LeftElement != null)
+                {
+                    LeftElement.Add(element);
+                }
+                else
+                {
+                    LeftElement = new BST(element);
+                }
+            }
+            else if (CurrentElement < element)
+            {
+                if (RightElement != null)
+                {
+                    RightElement.Add(element);
+                }
+                else
+                {
+                    RightElement = new BST(element);
+                }
+            }
+        }
+
+        public bool DoesTreeContain(int value)
+        {
+            if (value == CurrentElement)
+            {
+                return true;
+            }
+            else if (value < CurrentElement && LeftElement != null)
+            {
+                return LeftElement.DoesTreeContain(value);
+            }
+            else if (value > CurrentElement && RightElement != null)
+            {
+                return RightElement.DoesTreeContain(value);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void WriteTree()
+        {
+            if (LeftElement != null)
+            {
+                LeftElement.WriteTree();
+            }
+            Console.Write($"{CurrentElement} ");
+            if (RightElement != null)
+            {
+                RightElement.WriteTree();
+            }
+        }
+
+        public int FirstElement()
+        {
+            if(LeftElement == null)
+            {
+                return CurrentElement;
+            }
+            else
+            {
+                return LeftElement.FirstElement();
+            }
+        }
+
+        public int LastElement()
+        {
+            if (RightElement == null)
+            {
+                return CurrentElement;
+            }
+            else
+            {
+                return RightElement.FirstElement();
+            }
+        }
+
+    }
+}
